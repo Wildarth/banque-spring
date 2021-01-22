@@ -53,13 +53,11 @@ public class Client {
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	
-	
-	
+
 	public void ajouterCompte(Compte compte) {
 		this.comptes.add(compte);
 	}
-	
+
 	public Compte getCompte(int compte) {
 		return this.comptes.get(compte);
 	}
@@ -78,5 +76,4 @@ public class Client {
 				+ comptes + "]";
 	}
 
-	
 }
