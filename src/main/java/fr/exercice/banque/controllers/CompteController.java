@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.exercice.banque.models.Compte;
+import fr.exercice.banque.models.CompteRemunere;
 
 @RestController
 @RequestMapping("comptes")
@@ -49,12 +50,27 @@ public class CompteController {
 		return comptes.remove(id);
 	}
 	
+	@GetMapping("/{id}/interet")
+	public void verserInteret(@PathVariable int id) {
+		((CompteRemunere) this.findById(id)).verserInteret();
+	}
+	
+	@GetMapping("/interet")
+	public void verserInteretAll() {
+		for (Compte compte : comptes) {
+			if(compte.getClass() == CompteRemunere.class)
+				((CompteRemunere) compte).verserInteret();
+		}
+	}
+	
 	public List<Compte> initCompte(){
 		List<Compte> compte = new ArrayList<>();
 		
 		compte.add(new Compte(5000, 66));
 		compte.add(new Compte(600, 24));
 		compte.add(new Compte(8400, 74));
+		
+		compte.add(new CompteRemunere(8400.0, 74, 0.5));
 		
 		return compte;
 	}
